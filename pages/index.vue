@@ -1,89 +1,48 @@
 <template>
-  <v-row justify="center" align="center">
-    <v-col cols="12" sm="8" md="6">
-      <div class="text-center">
-        <logo />
-        <vuetify-logo />
-      </div>
-      <v-card>
-        <v-card-title class="headline">
-          Welcome to the Vuetify + Nuxt.js template
-        </v-card-title>
-        <v-card-text>
-          <p>Vuetify is a progressive Material Design component framework for Vue.js. It was designed to empower developers to create amazing applications.</p>
-          <p>
-            For more information on Vuetify, check out the <a
-              href="https://vuetifyjs.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              documentation
-            </a>.
-          </p>
-          <p>
-            If you have questions, please join the official <a
-              href="https://chat.vuetifyjs.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              title="chat"
-            >
-              discord
-            </a>.
-          </p>
-          <p>
-            Find a bug? Report it on the github <a
-              href="https://github.com/vuetifyjs/vuetify/issues"
-              target="_blank"
-              rel="noopener noreferrer"
-              title="contribute"
-            >
-              issue board
-            </a>.
-          </p>
-          <p>Thank you for developing with Vuetify and I look forward to bringing more exciting features in the future.</p>
-          <div class="text-xs-right">
-            <em><small>&mdash; John Leider</small></em>
-          </div>
-          <hr class="my-3">
-          <a
-            href="https://nuxtjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Nuxt Documentation
-          </a>
-          <br>
-          <a
-            href="https://github.com/nuxt/nuxt.js"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Nuxt GitHub
-          </a>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer />
-          <v-btn
-            color="primary"
-            nuxt
-            to="/inspire"
-          >
-            Continue
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-col>
-  </v-row>
+	<form @submit.prevent="submit">
+		<v-text-field
+			v-model="sticker_cloud_URL"
+			label="Sticker Cloud URL"
+		></v-text-field>
+
+		<v-btn class="mr-4" type="submit"> submit </v-btn>
+	</form>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
-import VuetifyLogo from '~/components/VuetifyLogo.vue'
+const JSSoup = require("jssoup").default;
+const imageConversion = require("image-conversion")
+import JsZip from 'jszip';
+import FileSaver from 'file-saver';
+const zip = JsZip();
 
 export default {
-  components: {
-    Logo,
-    VuetifyLogo
-  }
-}
+	data: () => ({
+		sticker_cloud_URL: "https://stickers.cloud/pack/doraemon-7",
+	}),
+	methods: {
+		async submit() {
+      var imgs = []
+      const name = this.sticker_cloud_URL.split('pack/').pop()
+			const sc = await this.$axios.get(`sc/${name}`);
+      var webp = sc.data.result.stickers.map(s=>s.sticker_src.split('packs/').pop())
+      webp.forEach((img) => {
+        imgs.push(imageConversion.urltoBlob(`img/${img}`))
+      });
+      Promise.all(imgs).then(blobs=>{
+        blobs.forEach((blob, i) => {
+          zip.file(`${i}.png`, blob);
+        });
+        zip.generateAsync({type: 'blob'}).then(zipFile => {
+          const fileName = `${name}.zip`;
+          return FileSaver.saveAs(zipFile, fileName);
+        });
+      })
+      // imageConversion.downloadFile(img,'hi.png')
+		},
+	},
+};
 </script>
+
+<style lang="scss" scoped>
+</style>

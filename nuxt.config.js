@@ -41,11 +41,33 @@ export default {
     '@nuxtjs/axios',
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
+    '@nuxtjs/proxy',
+
   ],
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
-  axios: {},
+  axios: {
+  },
 
+  proxy: {
+    '/sc': {
+      target: 'https://internal-api.stickers.cloud/v1/pack/',
+      pathRewrite: {
+        '^/sc': '/',
+      },
+      headers:{
+          origin: 'https://stickers.cloud',
+          referer:'https://stickers.cloud',
+      }
+    },
+    '/img': {
+      target: 'https://img.stickers.cloud/packs',
+      pathRewrite: {
+        '^/img': '/',
+      },
+    }
+  },
+  
   // Vuetify module configuration (https://go.nuxtjs.dev/config-vuetify)
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
