@@ -3,10 +3,7 @@
   to = "https://internal-api.stickers.cloud/v1/pack/"
   status = 200
   force = true
-  headers = {
-      Origin = "https://stickers.cloud",
-      Referer = "https://stickers.cloud/"
-      }
+  headers = {Origin = "https://stickers.cloud"}
 
 [[redirects]]
   from = "/img"
@@ -17,5 +14,4 @@
 [[headers]]
   for = "/*"
     [headers.values]
-    Origin = "https://stickers.cloud"
     Access-Control-Allow-Origin = "*"

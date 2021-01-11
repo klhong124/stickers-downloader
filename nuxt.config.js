@@ -57,7 +57,6 @@ export default {
       },
       headers:{
           origin: 'https://stickers.cloud',
-          referer:'https://stickers.cloud',
       }
     },
     '/img': {
@@ -67,7 +66,7 @@ export default {
       },
     }
   },
-  
+
   // Vuetify module configuration (https://go.nuxtjs.dev/config-vuetify)
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
