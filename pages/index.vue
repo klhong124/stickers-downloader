@@ -1,4 +1,5 @@
 <template>
+<div>
 	<form @submit.prevent="submit">
 		<v-text-field
 			v-model="sticker_cloud_URL"
@@ -7,10 +8,13 @@
 
 		<v-btn class="mr-4" type="submit"> submit </v-btn>
 	</form>
+
+  <iframe :src="sticker_cloud_URL" width="100%" height="600px" id="iframe"></iframe>
+
+</div>
 </template>
 
 <script>
-const JSSoup = require("jssoup").default;
 const imageConversion = require("image-conversion")
 import JsZip from 'jszip';
 import FileSaver from 'file-saver';
@@ -20,6 +24,11 @@ export default {
 	data: () => ({
 		sticker_cloud_URL: "https://stickers.cloud/pack/doraemon-7",
 	}),
+  mounted:()=>{
+    $('#iframe').on('load', function(res){
+    console.log(res);
+  });
+  },
 	methods: {
 		async submit() {
       var imgs = []

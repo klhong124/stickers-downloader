@@ -16,10 +16,11 @@
     "file-saver": "^2.0.5",
     "fs": "0.0.1-security",
     "image-conversion": "^2.1.1",
-    "jssoup": "0.0.12",
+    "jquery": "^3.5.1",
     "jszip": "^3.5.0",
     "net": "^1.0.2",
     "nuxt": "^2.14.6",
+    "soap": "^0.35.0",
     "tls": "0.0.1"
   },
   "devDependencies": {
