@@ -7,6 +7,6 @@
 
 [[redirects]]
   from = "/img"
-  to = "https://img.stickers.cloud/packs"
+  to = "https://img.stickers.cloud/packs/"
   status = 200
   force = true
