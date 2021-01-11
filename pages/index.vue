@@ -38,7 +38,6 @@ export default {
           return FileSaver.saveAs(zipFile, fileName);
         });
       })
-      // imageConversion.downloadFile(img,'hi.png')
 		},
 	},
 };
