@@ -4,10 +4,10 @@
   status = 200
   force = true
   headers = {
-      Origin = "https://stickers.cloud"
+      Origin = "https://stickers.cloud",
       Referer = "https://stickers.cloud/"
       }
-      
+
 [[redirects]]
   from = "/img"
   to = "https://img.stickers.cloud/packs"
@@ -15,7 +15,7 @@
   force = true
 
 [[headers]]
-  # Define which paths this specific [[headers]] block will cover.
   for = "/*"
     [headers.values]
+    Origin = "https://stickers.cloud",
     Access-Control-Allow-Origin = "*"
