@@ -1,3 +1,19 @@
+[[redirects]]
+  from = "/sc"
+  to = "https://internal-api.stickers.cloud/v1/pack/"
+  status = 200
+  force = true
+  headers = {
+      Origin = "https://stickers.cloud"
+      Referer = "https://stickers.cloud/"
+      }
+      
+[[redirects]]
+  from = "/img"
+  to = "https://img.stickers.cloud/packs"
+  status = 200
+  force = true
+
 [[headers]]
   # Define which paths this specific [[headers]] block will cover.
   for = "/*"
