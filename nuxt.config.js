@@ -61,12 +61,12 @@ export default {
           origin: 'https://stickers.cloud',
       }
     },
-    '/img': {
-      target: 'https://img.stickers.cloud/packs/',
-      pathRewrite: {
-        '^/img': '/',
-      },
-    }
+    // '/img': {
+    //   target: 'https://img.stickers.cloud/packs/',
+    //   pathRewrite: {
+    //     '^/img': '/',
+    //   },
+    // }
   },
 
   // Vuetify module configuration (https://go.nuxtjs.dev/config-vuetify)

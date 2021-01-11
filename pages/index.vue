@@ -34,9 +34,9 @@ export default {
       var imgs = []
       const name = this.sticker_cloud_URL.split('pack/').pop()
 			const sc = await this.$axios.get(`sc/${name}`);
-      var webp = sc.data.result.stickers.map(s=>s.sticker_src.split('packs/').pop())
+      var webp = sc.data.result.stickers.map(s=>s.sticker_src)
       webp.forEach((img) => {
-        imgs.push(imageConversion.urltoBlob(`img/${img}`))
+        imgs.push(imageConversion.urltoBlob(img))
       });
       Promise.all(imgs).then(blobs=>{
         blobs.forEach((blob, i) => {
