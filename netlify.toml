@@ -17,5 +17,5 @@
 [[headers]]
   for = "/*"
     [headers.values]
-    Origin = "https://stickers.cloud",
+    Origin = "https://stickers.cloud"
     Access-Control-Allow-Origin = "*"
