@@ -62,7 +62,7 @@ export default {
       }
     },
     '/img': {
-      target: 'https://img.stickers.cloud/packs',
+      target: 'https://img.stickers.cloud/packs/',
       pathRewrite: {
         '^/img': '/',
       },
