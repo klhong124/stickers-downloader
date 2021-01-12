@@ -1,5 +1,6 @@
 import colors from 'vuetify/es5/util/colors'
 const webpack = require('webpack')
+require('dotenv').config()
 
 export default {
   // Disable server-side rendering (https://go.nuxtjs.dev/ssr-mode)
@@ -25,11 +26,17 @@ export default {
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [
-      '~/plugins/axios'
+      '~/plugins/axios',
+      { src: '~plugins/ga.js', mode: 'client' }
+
     ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
   components: true,
+
+  env: {
+    TrackingID: process.env.TrackingID
+  },
 
   // Modules for dev and build (recommended) (https://go.nuxtjs.dev/config-modules)
   buildModules: [
@@ -67,6 +74,12 @@ export default {
       target: 'https://img.stickers.cloud/packs/',
       pathRewrite: {
         '^/img': '',
+      },
+    },
+    '/s1': {
+      target: 'https://s1.stickers.cloud/packs/',
+      pathRewrite: {
+        '^/s1': '',
       },
     }
   },

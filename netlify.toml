@@ -2,13 +2,20 @@
   from = "/sc/*"
   to = "https://internal-api.stickers.cloud/v1/pack/:splat"
   status = 200
+  force = true
   headers = {origin = "https://stickers.cloud"}
 
 [[redirects]]
   from = "/img/*"
   to = "https://img.stickers.cloud/packs/:splat"
+  force = true
   status = 200
 
+[[redirects]]
+  from = "/s1/*"
+  to = "https://s1.stickers.cloud/packs/:splat"
+  force = true
+  status = 200
 
 [[headers]]
   for = "/*"

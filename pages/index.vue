@@ -1,15 +1,23 @@
 <template>
 <div>
+  <h1>Sticker Cloud Downloader</h1>
+  <br>
+  <p>download sticker packs from sticker cloud~</p>
 	<form @submit.prevent="submit">
 		<v-text-field
 			v-model="sticker_cloud_URL"
-			label="Sticker Cloud URL"
+			label="paste Sticker Cloud URL here"
 		></v-text-field>
-		<v-btn class="mr-4" type="submit"> submit </v-btn>
+		<v-btn class="mr-4" type="submit"> Download </v-btn>
 	</form>
   <br>
-
-  <iframe :src="sticker_cloud_URL" width="100%" height="600px" id="iframe"></iframe>
+  <p>then upload on signal~ <a href="https://support.signal.org/hc/en-us/articles/360031836512-Stickers">tutorial</a></p>
+  <iframe 
+  :src="sticker_cloud_URL"
+  frameborder="0" scrolling="no" 
+  sandbox="allow-same-origin allow-scripts"
+  width="100%" height="600px" 
+  id="iframe"></iframe>
 
 </div>
 </template>
@@ -22,7 +30,7 @@ const zip = JsZip();
 
 export default {
 	data: () => ({
-		sticker_cloud_URL: "https://stickers.cloud/pack/doraemon-7",
+		sticker_cloud_URL: "https://stickers.cloud/pack/pepe",
 	}),
   mounted:()=>{
 
@@ -34,7 +42,7 @@ export default {
 			const sc = await this.$axios.get(`/sc/${name}`);
       var webp = sc.data.result.stickers.map(s=>s.sticker_src)
       webp.forEach((img) => {
-        imgs.push(imageConversion.urltoBlob(`/img/${img.split('packs/').pop()}`))
+        imgs.push(imageConversion.urltoBlob(`/${img.split('://').pop().split('.')[0]}/${img.split('packs/').pop()}`))
       });
       Promise.all(imgs).then(blobs=>{
         blobs.forEach((blob, i) => {
@@ -51,4 +59,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+iframe {
+  pointer-events: none;
+}
 </style>
