@@ -11,7 +11,7 @@
 		<v-btn class="mr-4" type="submit"> Download </v-btn>
 	</form>
   <br>
-  <p>then upload on signal~ <a href="https://support.signal.org/hc/en-us/articles/360031836512-Stickers">tutorial</a></p>
+  <p>then upload on signal~ <a target="_blank" href="https://support.signal.org/hc/en-us/articles/360031836512-Stickers">tutorial</a></p>
   <iframe 
   :src="sticker_cloud_URL"
   frameborder="0" scrolling="no" 
