@@ -5,3 +5,7 @@
   force = true    
   headers = {Origin = "https://stickers.cloud"}
 
+[[headers]]
+  for = "/*"
+    [headers.values]
+    Access-Control-Allow-Origin = "*"

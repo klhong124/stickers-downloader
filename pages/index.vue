@@ -25,9 +25,7 @@ export default {
 		sticker_cloud_URL: "https://stickers.cloud/pack/doraemon-7",
 	}),
   mounted:()=>{
-    $('#iframe').on('load', function(res){
-    console.log(res);
-  });
+
   },
 	methods: {
 		async submit() {
