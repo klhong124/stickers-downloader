@@ -1,9 +1,14 @@
 [[redirects]]
-  from = "/sc"
-  to = "https://internal-api.stickers.cloud/v1/pack/"
+  from = "/sc/*"
+  to = "https://internal-api.stickers.cloud/v1/pack/:splat"
   status = 200
-  force = true    
-  headers = {Origin = "https://stickers.cloud"}
+  headers = {origin = "https://stickers.cloud"}
+
+[[redirects]]
+  from = "/img/*"
+  to = "https://img.stickers.cloud/packs/:splat"
+  status = 200
+
 
 [[headers]]
   for = "/*"

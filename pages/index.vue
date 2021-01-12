@@ -31,10 +31,10 @@ export default {
 		async submit() {
       var imgs = []
       const name = this.sticker_cloud_URL.split('pack/').pop()
-			const sc = await this.$axios.get(`sc/${name}`);
+			const sc = await this.$axios.get(`/sc/${name}`);
       var webp = sc.data.result.stickers.map(s=>s.sticker_src)
       webp.forEach((img) => {
-        imgs.push(imageConversion.urltoBlob(`img/${img.split('packs/').pop()}`))
+        imgs.push(imageConversion.urltoBlob(`/img/${img.split('packs/').pop()}`))
       });
       Promise.all(imgs).then(blobs=>{
         blobs.forEach((blob, i) => {
