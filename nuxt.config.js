@@ -25,7 +25,7 @@ export default {
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [
-
+      '~/plugins/axios'
     ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
@@ -49,24 +49,26 @@ export default {
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {
+    proxy: true,
+    credentials: true,
   },
 
   proxy: {
     '/sc': {
       target: 'https://internal-api.stickers.cloud/v1/pack/',
       pathRewrite: {
-        '^/sc': '/',
+        '^/sc': '',
       },
       headers:{
           origin: 'https://stickers.cloud',
       }
     },
-    // '/img': {
-    //   target: 'https://img.stickers.cloud/packs/',
-    //   pathRewrite: {
-    //     '^/img': '/',
-    //   },
-    // }
+    '/img': {
+      target: 'https://img.stickers.cloud/packs/',
+      pathRewrite: {
+        '^/img': '',
+      },
+    }
   },
 
   // Vuetify module configuration (https://go.nuxtjs.dev/config-vuetify)

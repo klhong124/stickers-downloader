@@ -5,9 +5,9 @@
 			v-model="sticker_cloud_URL"
 			label="Sticker Cloud URL"
 		></v-text-field>
-
 		<v-btn class="mr-4" type="submit"> submit </v-btn>
 	</form>
+  <br>
 
   <iframe :src="sticker_cloud_URL" width="100%" height="600px" id="iframe"></iframe>
 
@@ -34,7 +34,7 @@ export default {
 			const sc = await this.$axios.get(`sc/${name}`);
       var webp = sc.data.result.stickers.map(s=>s.sticker_src)
       webp.forEach((img) => {
-        imgs.push(imageConversion.urltoBlob(img))
+        imgs.push(imageConversion.urltoBlob(`img/${img.split('packs/').pop()}`))
       });
       Promise.all(imgs).then(blobs=>{
         blobs.forEach((blob, i) => {
