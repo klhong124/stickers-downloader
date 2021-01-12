@@ -1,4 +1,5 @@
 # sticker-downloader
+sticker-downloader from Sticker Cloud, help to download stickers and upload onto signal!
 
 ## Build Setup
 

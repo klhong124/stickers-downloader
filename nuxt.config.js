@@ -13,7 +13,7 @@ export default {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: 'sticker-downloader from Sticker Cloud, help to download stickers and upload onto signal! }
+      { hid: 'description', name: 'description', content: 'sticker-downloader from Sticker Cloud, help to download stickers and upload onto signal!' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
