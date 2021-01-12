@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<h1>Sticker Cloud Downloader</h1>
+		<h1 style="font-size='50px'">Sticker Cloud Downloader</h1>
 		<br />
 		<p>download sticker packs from sticker cloud~</p>
 		<ol>
