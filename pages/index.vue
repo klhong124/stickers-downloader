@@ -114,9 +114,9 @@ export default {
 		async fetch(){
 			this.loading = true
 			this.$ga.event({
-				eventCategory: "download",
-				eventAction: "click",
-				eventLabel: "mouseclick",
+				eventCategory: "url input",
+				eventAction: "fetch",
+				eventLabel: "sticker cloud",
 				eventValue: this.name,
 			});
 			const sc = await this.$axios.get(`/sc/${this.name}`);
@@ -139,10 +139,11 @@ export default {
 			const zip = JsZip();
 			this.downloading = true;
 			var imgs = [];
+
 			this.$ga.event({
-				eventCategory: "download",
+				eventCategory: "download button",
 				eventAction: "click",
-				eventLabel: "mouseclick",
+				eventLabel: "sticker cloud",
 				eventValue: this.name,
 			});
 

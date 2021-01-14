@@ -56,7 +56,8 @@ export default {
   ],
 
   googleAnalytics: {
-    id: process.env.TrackingID
+    id: process.env.TrackingID,
+    checkDuplicatedScript: true,
   },
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
