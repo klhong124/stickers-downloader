@@ -89,7 +89,9 @@ export default {
 		error: [],
 		loading: false,
 	}),
-	mounted: () => {},
+	mounted: () => {
+		// console.log(this.ga);
+	},
 	methods: {
 		async download() {
 			this.loading = true;

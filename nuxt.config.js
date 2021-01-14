@@ -33,21 +33,16 @@ export default {
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [
       '~/plugins/axios',
-      { src: '~plugins/ga.js', mode: 'client' }
-
     ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
   components: true,
 
-  env: {
-    TrackingID: process.env.TrackingID
-  },
-
   // Modules for dev and build (recommended) (https://go.nuxtjs.dev/config-modules)
   buildModules: [
     // https://go.nuxtjs.dev/vuetify
     '@nuxtjs/vuetify',
+    '@nuxtjs/google-analytics',
   ],
 
   // Modules (https://go.nuxtjs.dev/config-modules)
@@ -57,12 +52,12 @@ export default {
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
     '@nuxtjs/proxy',
-    '@nuxtjs/google-adsense',
 
   ],
-  'google-adsense': {
-      id: 'ca-pub-7892889845905168'
-    },
+  
+  googleAnalytics: {
+    id: process.env.TrackingID
+  },
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {
