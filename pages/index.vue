@@ -30,6 +30,7 @@
 				:key="i"
 				:label="n"
 				:value="n"
+				:disabled="!!error.length"
 			></v-radio>
 		</v-radio-group>
 		<v-radio-group v-else row style="display:inline">
@@ -38,8 +39,20 @@
 				disabled
 			></v-radio>
 		</v-radio-group>
-		<v-btn class="mr-4" @click="download" :disabled="loading" large>
-			Download
+		  
+		<v-btn class="mr-4" @click="download" :disabled="loading || !!error.length" large>
+			<span v-if="!downloading">	
+				Download
+			</span>
+			<div v-else>
+				<div style="margin:14px 0 -20px">{{progress}}%</div>
+				<v-text-field
+					dense
+					color="success"
+					loading
+					disabled
+				></v-text-field>
+			</div>
 		</v-btn>
 		<br />
 		<br />
@@ -79,13 +92,15 @@ import FileSaver from "file-saver";
 
 export default {
 	data: () => ({
-		sticker_cloud_URL: "https://stickers.cloud/pack/isabelle",
+		sticker_cloud_URL: "https://stickers.cloud/pack/pepe",
 		awaitingSearch: false,
 		error: [],
 		file_types:['webp','png'],
 		file_type:'webp',
 		loading: false,
-		webp:[]
+		webp:[],
+		progress:0,
+		downloading:false,
 	}),
 	mounted: function () {
 		this.fetch()
@@ -122,7 +137,7 @@ export default {
 		},
 		async download() {
 			const zip = JsZip();
-			this.loading = true;
+			this.downloading = true;
 			var imgs = [];
 			this.$ga.event({
 				eventCategory: "download",
@@ -130,15 +145,20 @@ export default {
 				eventLabel: "mouseclick",
 				eventValue: this.name,
 			});
+
+			var count = 0;
+			this.progress = 0;
+
 			this.webp.forEach((img) => {
 				imgs.push(
 					imageConversion.urltoBlob(
 						`/${
 							img.split("://").pop().split(".")[0]
 						}/${img.split("packs/").pop()}`
-					)
+					).then(res=>{this.progress = parseInt((count++ / imgs.length)*100);return res})
 				);
 			});
+
 			Promise.all(imgs).then((blobs) => {
 				blobs.forEach((blob, i) => {
 					zip.file(`${this.name}${i}.${this.file_type}`, blob);
@@ -147,8 +167,8 @@ export default {
 					const fileName = `${this.name}.zip`;
 					return FileSaver.saveAs(zipFile, fileName);
 				});
+				this.downloading = false;
 			});
-			this.loading = false;
 		},
 	},
 	watch: {
