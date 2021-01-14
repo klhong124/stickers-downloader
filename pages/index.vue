@@ -82,7 +82,6 @@ export default {
 		sticker_cloud_URL: "https://stickers.cloud/pack/isabelle",
 		awaitingSearch: false,
 		error: [],
-		urlFocus:false,
 		file_types:['webp','png'],
 		file_type:'webp',
 		loading: false,
@@ -99,7 +98,6 @@ export default {
 	methods: {
 		async fetch(){
 			this.loading = true
-			this.urlFocus=false
 			this.$ga.event({
 				eventCategory: "download",
 				eventAction: "click",
@@ -115,6 +113,7 @@ export default {
 				this.file_type = 'webp'
 			}
 			if (sc.data.success) {
+				this.error = [];
 				this.webp = sc.data.result.stickers.map((s) => s.sticker_src);
 			} else {
 				this.error = ["Invalid URL"];
@@ -149,15 +148,12 @@ export default {
 					return FileSaver.saveAs(zipFile, fileName);
 				});
 			});
-
-
 			this.loading = false;
 		},
 	},
 	watch: {
 		sticker_cloud_URL: function (val) {
 			this.loading=true
-			this.error = []
 			if (!this.awaitingSearch) {
 				setTimeout(() => {
 					this.fetch();
@@ -165,6 +161,7 @@ export default {
 			}, 1500); // 1.5 sec delay
 			}
 			this.awaitingSearch = true;
+
 		},
 	},
 };
