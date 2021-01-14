@@ -1,59 +1,76 @@
 <template>
 	<div>
-		<h1 style="font-size: '50px'">Sticker Cloud Downloader</h1>
-		<br />
-		<p>Download sticker packs from sticker cloud~</p>
-		<ol>
-			<li>
-				Go to
-				<a target="_blank" href="https://stickers.cloud"
-					>Stickers Cloud</a
-				>
-			</li>
-			<li>Choose a Sticker Pack</li>
-			<li>Copy the URL and paste it on below</li>
-		</ol>
-		<br />
-		<small>*May not support IOS Chrome for now. Plz try Safari or use a Desktop.</small>
-		<br />
-		<br />
-		<v-text-field
-			v-model="sticker_cloud_URL"
-			label="paste Sticker Cloud URL here"
-			:loading="loading"
-			:error-messages="error"
-		></v-text-field>
-		<span>File type:</span>
-		<v-radio-group v-if="!loading" v-model="file_type" row style="display:inline">
-			<v-radio
-				v-for="(n,i) in file_types"
-				:key="i"
-				:label="`.${n}`"
-				:value="n"
-				:disabled="!!error.length"
-			></v-radio>
-		</v-radio-group>
-		<v-radio-group v-else row style="display:inline">
-			<v-radio
-				:label="'loading...'"
-				disabled
-			></v-radio>
-		</v-radio-group>
-		  
-		<v-btn class="mr-4" @click="download" :disabled="loading || !!error.length" large>
-			<span v-if="!downloading">	
-				Download
-			</span>
-			<div v-else>
-				<div style="margin:14px 0 -20px">{{progress}}%</div>
+		<v-row>
+			<v-col cols="12" md="6" lg="7">
+				<h1 style="font-size: '50px'">Sticker Cloud Downloader</h1>
+				<br />
+				<p>Download sticker packs from sticker cloud~</p>
+				<ol>
+					<li>
+						Go to
+						<a target="_blank" href="https://stickers.cloud"
+							>Stickers Cloud</a
+						>
+					</li>
+					<li>Choose a Sticker Pack</li>
+					<li>Copy the URL and paste it on below</li>
+				</ol>
+				<br />
+				<small>*May not support IOS Chrome for now. Plz try Safari or use a Desktop.</small>
+				<br />
+				<br />
 				<v-text-field
-					dense
-					color="success"
-					loading
-					disabled
+					v-model="sticker_cloud_URL"
+					label="paste Sticker Cloud URL here"
+					:loading="loading"
+					:error-messages="error"
 				></v-text-field>
-			</div>
-		</v-btn>
+				<span>File type:</span>
+				<v-radio-group v-if="!loading" v-model="file_type" row style="display:inline">
+					<v-radio
+						v-for="(n,i) in file_types"
+						:key="i"
+						:label="`.${n}`"
+						:value="n"
+						:disabled="!!error.length"
+					></v-radio>
+				</v-radio-group>
+				<v-radio-group v-else row style="display:inline">
+					<v-radio
+						:label="'loading...'"
+						disabled
+					></v-radio>
+				</v-radio-group>
+				
+				<v-btn class="mr-4" @click="download" :disabled="loading || !!error.length" large>
+					<span v-if="!downloading">	
+						Download
+					</span>
+					<div v-else>
+						<div style="margin:14px 0 -20px">{{progress}}%</div>
+						<v-text-field
+							dense
+							color="success"
+							loading
+							disabled
+						></v-text-field>
+					</div>
+				</v-btn>
+			</v-col>
+			<v-col>
+				<iframe
+					class="mt-3 mb-5"
+					:src="sticker_cloud_URL"
+					frameborder="0"
+					scrolling="no"
+					sandbox="allow-same-origin allow-scripts"
+					width="100%"
+					height="600px"
+					id="iframe"
+				></iframe>
+			</v-col>
+		</v-row>
+		
 		<br />
 		<br />
 		<p>
@@ -64,16 +81,35 @@
 				>tutorial</a
 			>
 		</p>
-		<iframe
-			class="mt-3 mb-5"
-			:src="sticker_cloud_URL"
-			frameborder="0"
-			scrolling="no"
-			sandbox="allow-same-origin allow-scripts"
-			width="100%"
-			height="600px"
-			id="iframe"
-		></iframe>
+		
+		<v-row>
+			<v-col cols="12" lg="4">
+				<p>1. Download the Stickers into zip file</p>
+				<center>
+					<video loop width="400px" autoplay>
+						<source src="/1.mov" type="video/mp4">
+					</video>
+				</center>
+			</v-col>
+			<v-col cols="12" lg="4">
+				<p>2. Open Sticker Pack Creator from Signal Desktop</p>
+				<center>
+					<video loop width="400px" autoplay>
+						<source src="/2.mov" type="video/mp4">
+					</video>
+				</center>
+
+			</v-col>
+			<v-col cols="12" lg="4">
+				<p>3. Unzip, drag and drop the folder into Creator.</p>
+				<center>
+					<video loop width="400px" autoplay>
+						<source src="/3.mov" type="video/mp4">
+					</video>
+				</center>
+			</v-col>
+		</v-row>
+		<br>
 
 		<!-- <div class="card container mb-5">
 			<center>
@@ -197,5 +233,8 @@ export default {
 		border: solid white;
 		border-width: 1px;
 		border-radius: 8px;
+	}
+	video{
+		outline: 0px solid transparent;
 	}
 </style>
