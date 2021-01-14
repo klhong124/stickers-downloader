@@ -105,7 +105,7 @@ export default {
 				eventLabel: 'mouseclick',
 				eventValue: name,
 			})
-			
+
 			const sc = await this.$axios.get(`/sc/${name}`);
 
 			if (sc.data.success) {
