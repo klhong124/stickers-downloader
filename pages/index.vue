@@ -235,6 +235,6 @@ export default {
 		border-radius: 8px;
 	}
 	video{
-		outline: 0px solid transparent;
+		max-width: 400px;
 	}
 </style>
