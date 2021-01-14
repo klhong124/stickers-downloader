@@ -106,7 +106,7 @@ export default {
 				});
 				Promise.all(imgs).then((blobs) => {
 					blobs.forEach((blob, i) => {
-						zip.file(`${i}.png`, blob);
+						zip.file(`${name}${i}.png`, blob);
 					});
 					zip.generateAsync({ type: "blob" }).then((zipFile) => {
 						const fileName = `${name}.zip`;
