@@ -1,8 +1,8 @@
 <template>
 	<div>
-		<v-row>
+		<v-row class="mt-5">
 			<v-col cols="12" md="6" lg="7">
-				<h1 style="font-size: '50px'">Sticker Cloud Downloader</h1>
+				<h1 style="font-size:50px">Sticker Cloud Downloader</h1>
 				<br />
 				<p>Download sticker packs from sticker cloud~</p>
 				<ol>
@@ -235,6 +235,6 @@ export default {
 		border-radius: 8px;
 	}
 	video{
-		max-width: 400px;
+		width: min(100%,400px);
 	}
 </style>
