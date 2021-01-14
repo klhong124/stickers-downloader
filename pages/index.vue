@@ -86,7 +86,7 @@
 			<v-col cols="12" lg="4">
 				<p>1. Download the Stickers into zip file</p>
 				<center>
-					<video loop width="400px" autoplay>
+					<video loop autoplay>
 						<source src="/1.mov" type="video/mp4">
 					</video>
 				</center>
@@ -94,7 +94,7 @@
 			<v-col cols="12" lg="4">
 				<p>2. Open Sticker Pack Creator from Signal Desktop</p>
 				<center>
-					<video loop width="400px" autoplay>
+					<video loop autoplay>
 						<source src="/2.mov" type="video/mp4">
 					</video>
 				</center>
@@ -103,7 +103,7 @@
 			<v-col cols="12" lg="4">
 				<p>3. Unzip, drag and drop the folder into Creator.</p>
 				<center>
-					<video loop width="400px" autoplay>
+					<video loop autoplay>
 						<source src="/3.mov" type="video/mp4">
 					</video>
 				</center>
