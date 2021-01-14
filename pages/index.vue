@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<h1 style="font-size:'50px'">Sticker Cloud Downloader</h1>
+		<h1 style="font-size: '50px'">Sticker Cloud Downloader</h1>
 		<br />
 		<p>Download sticker packs from sticker cloud~</p>
 		<ol>
@@ -14,7 +14,7 @@
 			<li>Copy the URL and paste it on below</li>
 		</ol>
 		<br />
-		<small>May not support IOS Chrome for now.</small>
+		<small>*May not support IOS Chrome for now. Plz try Safari or use a Desktop.</small>
 		<br />
 		<br />
 		<v-text-field
@@ -23,11 +23,26 @@
 			:loading="loading"
 			:error-messages="error"
 		></v-text-field>
+		<span>File type:</span>
+		<v-radio-group v-if="!loading" v-model="file_type" row style="display:inline">
+			<v-radio
+				v-for="(n,i) in file_types"
+				:key="i"
+				:label="n"
+				:value="n"
+			></v-radio>
+		</v-radio-group>
+		<v-radio-group v-else row style="display:inline">
+			<v-radio
+				:label="'loading...'"
+				disabled
+			></v-radio>
+		</v-radio-group>
 		<v-btn class="mr-4" @click="download" :disabled="loading" large>
 			Download
 		</v-btn>
-		<br/>
-		<br/>
+		<br />
+		<br />
 		<p>
 			Then upload on signal~ Let's use signal
 			<a
@@ -47,33 +62,13 @@
 			id="iframe"
 		></iframe>
 
-		<div class="card container mb-5">
+		<!-- <div class="card container mb-5">
 			<center>
 				<h1>Report Bugs</h1>
 			</center>
-			<br>
-			<form name="contact" class="pb-4 pl-4 pr-4" netlify>
-				<v-text-field
-					dark
-					outlined
-					name="title"
-					label="Title"
-					value=""
-				></v-text-field>
-				<v-textarea
-					dark
-					outlined
-					name="content"
-					value=""
-					label="Content"
-				></v-textarea>
-				<v-btn outlined dark style="float: right" type="submit"
-					large >Send</v-btn
-				>
-				<br />
-			</form>
-		</div>
-
+			<br />
+				<Form />
+		</div> -->
 	</div>
 </template>
 
@@ -81,58 +76,95 @@
 const imageConversion = require("image-conversion");
 import JsZip from "jszip";
 import FileSaver from "file-saver";
-const zip = JsZip();
 
 export default {
 	data: () => ({
-		sticker_cloud_URL: "https://stickers.cloud/pack/pepe",
+		sticker_cloud_URL: "https://stickers.cloud/pack/isabelle",
+		awaitingSearch: false,
 		error: [],
+		urlFocus:false,
+		file_types:['webp','png'],
+		file_type:'webp',
 		loading: false,
+		webp:[]
 	}),
-	mounted: () => {
-		// console.log(this.ga);
+	mounted: function () {
+		this.fetch()
+	},
+	computed:{
+		name:function () {
+			return this.sticker_cloud_URL.split("/").pop();
+		}
 	},
 	methods: {
-		async download() {
-			
-			this.loading = true;
-			var imgs = [];
-			const name = this.sticker_cloud_URL.split("/").pop();
-
+		async fetch(){
+			this.loading = true
+			this.urlFocus=false
 			this.$ga.event({
-				eventCategory: 'download',
-				eventAction: 'click',
-				eventLabel: 'mouseclick',
-				eventValue: name,
-			})
-
-			const sc = await this.$axios.get(`/sc/${name}`);
-
+				eventCategory: "download",
+				eventAction: "click",
+				eventLabel: "mouseclick",
+				eventValue: this.name,
+			});
+			const sc = await this.$axios.get(`/sc/${this.name}`);
+			if(sc.data.result.animated){
+				this.file_types = ['webp','gif']
+				this.file_type = 'webp'
+			} else {
+				this.file_types = ['webp','png']
+				this.file_type = 'webp'
+			}
 			if (sc.data.success) {
-				var webp = sc.data.result.stickers.map((s) => s.sticker_src);
-				webp.forEach((img) => {
-					imgs.push(
-						imageConversion.urltoBlob(
-							`/${
-								img.split("://").pop().split(".")[0]
-							}/${img.split("packs/").pop()}`
-						)
-					);
-				});
-				Promise.all(imgs).then((blobs) => {
-					blobs.forEach((blob, i) => {
-						zip.file(`${name}${i}.png`, blob);
-					});
-					zip.generateAsync({ type: "blob" }).then((zipFile) => {
-						const fileName = `${name}.zip`;
-						return FileSaver.saveAs(zipFile, fileName);
-					});
-				});
+				this.webp = sc.data.result.stickers.map((s) => s.sticker_src);
 			} else {
 				this.error = ["Invalid URL"];
 			}
+			this.loading=false
+		},
+		async download() {
+			const zip = JsZip();
+			this.loading = true;
+			var imgs = [];
+			this.$ga.event({
+				eventCategory: "download",
+				eventAction: "click",
+				eventLabel: "mouseclick",
+				eventValue: this.name,
+			});
+			this.webp.forEach((img) => {
+				imgs.push(
+					imageConversion.urltoBlob(
+						`/${
+							img.split("://").pop().split(".")[0]
+						}/${img.split("packs/").pop()}`
+					)
+				);
+			});
+			Promise.all(imgs).then((blobs) => {
+				blobs.forEach((blob, i) => {
+					zip.file(`${this.name}${i}.${this.file_type}`, blob);
+				});
+				zip.generateAsync({ type: "blob" }).then((zipFile) => {
+					const fileName = `${this.name}.zip`;
+					return FileSaver.saveAs(zipFile, fileName);
+				});
+			});
+
 
 			this.loading = false;
+		},
+	},
+	watch: {
+		sticker_cloud_URL: function (val) {
+			this.loading=true
+			this.error = []
+			if (!this.awaitingSearch) {
+				setTimeout(() => {
+					this.fetch();
+				this.awaitingSearch = false;
+			}, 1500); // 1.5 sec delay
+			}
+			this.awaitingSearch = true;
 		},
 	},
 };

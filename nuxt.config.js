@@ -86,7 +86,31 @@ export default {
       pathRewrite: {
         '^/s1': '',
       },
-    }
+    },
+    '/s2': {
+      target: 'https://s2.stickers.cloud/packs/',
+      pathRewrite: {
+        '^/s2': '',
+      },
+    },
+    '/s3': {
+      target: 'https://s3.stickers.cloud/packs/',
+      pathRewrite: {
+        '^/s3': '',
+      },
+    },
+    '/s4': {
+      target: 'https://s4.stickers.cloud/packs/',
+      pathRewrite: {
+        '^/s4': '',
+      },
+    },
+    '/s5': {
+      target: 'https://s5.stickers.cloud/packs/',
+      pathRewrite: {
+        '^/s5': '',
+      },
+    },
   },
 
   // Vuetify module configuration (https://go.nuxtjs.dev/config-vuetify)

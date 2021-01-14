@@ -17,6 +17,30 @@
   force = true
   status = 200
 
+[[redirects]]
+  from = "/s2/*"
+  to = "https://s2.stickers.cloud/packs/:splat"
+  force = true
+  status = 200
+
+[[redirects]]
+  from = "/s3/*"
+  to = "https://s3.stickers.cloud/packs/:splat"
+  force = true
+  status = 200
+
+[[redirects]]
+  from = "/s4/*"
+  to = "https://s4.stickers.cloud/packs/:splat"
+  force = true
+  status = 200
+
+[[redirects]]
+  from = "/s5/*"
+  to = "https://s5.stickers.cloud/packs/:splat"
+  force = true
+  status = 200
+
 [[headers]]
   for = "/*"
     [headers.values]
