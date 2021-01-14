@@ -2,10 +2,10 @@
 	<div>
 		<h1 style="font-size:'50px'">Sticker Cloud Downloader</h1>
 		<br />
-		<p>download sticker packs from sticker cloud~</p>
+		<p>Download sticker packs from sticker cloud~</p>
 		<ol>
 			<li>
-				go to
+				Go to
 				<a target="_blank" href="https://stickers.cloud"
 					>Stickers Cloud</a
 				>
@@ -13,6 +13,9 @@
 			<li>Choose a Sticker Pack</li>
 			<li>Copy the URL and paste it on below</li>
 		</ol>
+		<br />
+		<small>May not support IOS Chrome for now.</small>
+		<br />
 		<br />
 		<v-text-field
 			v-model="sticker_cloud_URL"
