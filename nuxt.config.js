@@ -54,7 +54,7 @@ export default {
     '@nuxtjs/proxy',
 
   ],
-  
+
   googleAnalytics: {
     id: process.env.TrackingID
   },

@@ -94,10 +94,20 @@ export default {
 	},
 	methods: {
 		async download() {
+			
 			this.loading = true;
 			var imgs = [];
 			const name = this.sticker_cloud_URL.split("/").pop();
+
+			this.$ga.event({
+				eventCategory: 'download',
+				eventAction: 'click',
+				eventLabel: 'mouseclick',
+				eventValue: name,
+			})
+			
 			const sc = await this.$axios.get(`/sc/${name}`);
+
 			if (sc.data.success) {
 				var webp = sc.data.result.stickers.map((s) => s.sticker_src);
 				webp.forEach((img) => {
