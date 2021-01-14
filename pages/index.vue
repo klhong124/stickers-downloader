@@ -28,7 +28,7 @@
 			<v-radio
 				v-for="(n,i) in file_types"
 				:key="i"
-				:label="n"
+				:label="`.${n}`"
 				:value="n"
 				:disabled="!!error.length"
 			></v-radio>
@@ -164,7 +164,7 @@ export default {
 					zip.file(`${this.name}${i}.${this.file_type}`, blob);
 				});
 				zip.generateAsync({ type: "blob" }).then((zipFile) => {
-					const fileName = `${this.name}.zip`;
+					const fileName = `${this.name}(${this.file_type}).zip`;
 					return FileSaver.saveAs(zipFile, fileName);
 				});
 				this.downloading = false;
