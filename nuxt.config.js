@@ -68,7 +68,7 @@ export default {
 
   proxy: {
     '/sc': {
-      target: 'https://internal-api.stickers.cloud/v1/pack/',
+      target: 'https://internal-api.stickers.cloud/v1/with-packs/',
       pathRewrite: {
         '^/sc': '',
       },
