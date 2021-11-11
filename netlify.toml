@@ -1,6 +1,6 @@
 [[redirects]]
   from = "/sc/*"
-  to = "https://internal-api.stickers.cloud/v1/pack/:splat"
+  to = "https://internal-api.stickers.cloud/v1/with-packs/:splat"
   status = 200
   force = true
   headers = {origin = "https://stickers.cloud"}
